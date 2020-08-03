@@ -1,0 +1,106 @@
+//HCDE 524 Sofia Rodriguez. This is a scaled drawing that shows a puppy growing in size, controlled by the user. It uses mouse presses and key presses to manipulate the size of the puppy accordingly. 
+
+
+/*SETUP*/
+//creates puppy's global proportion
+var puppyProportion = 1;
+//Setups the Drawing Area
+function setup() {
+  createCanvas(800, 800);
+  background(199, 240, 240);
+  //draws a puppy at the bottom of the canvas
+  drawPuppy(50, 500);
+
+  //Text box with Cooper's story
+  fill("white")
+  rect(0, 600, 800, 200)
+  fill("black")
+  textSize(15)
+  text('This is Cooper. Cooper is a small puppy who is going to be a big dog one day. Watch him grow!', 10, 630)
+  text('Press the up arrow key for every year you want Cooper to grow. Then click anywhere on the canvas to see him.', 10, 660)
+  text('If you want to age Cooper down, press the down key and click to see him get younger again.', 10, 690)
+  text('If you want to start over, just press "C".', 10, 720)
+  text('If you want to save all the Coopers, just press "S".', 10, 750)
+}
+
+//Happy Birthday Sign
+function draw() {
+  noStroke()
+  fill(255, 231, 252)
+  rect(0, 0, 800, 100)
+  fill(3, 75, 40)
+  textSize(42)
+  text('Happy Birthday Cooper!', 180, 70)
+
+
+//Shows the age of the puppy in the top left corner
+  fill("black");
+  rect(0, 0, 40, 20);
+  fill("white");
+  textSize(15)
+  text(puppyProportion, 15, 15);
+}
+
+  
+
+//Drawing Cooper!
+function drawPuppy(Xcoord, Ycoord) {
+
+  push();
+  scale(puppyProportion);
+  Xcoord = Xcoord / puppyProportion;
+  Ycoord = Ycoord / puppyProportion;
+  //Puppy Head
+  stroke(0)
+  fill(240, 222, 199)
+  circle(Xcoord, Ycoord, 30)
+  //Puppy eyes
+  circle(Xcoord - 5, Ycoord, 5)
+  circle(Xcoord + 5, Ycoord, 5)
+  ellipse(Xcoord - 5, Ycoord, 1, 3)
+  ellipse(Xcoord + 5, Ycoord, 1, 3)
+  //Puppy nose
+  ellipse(Xcoord, Ycoord + 5, 5, 2)
+  //Puppy mouth
+  arc(Xcoord, Ycoord + 5, 5, 5, 0, PI, CHORD);
+  //Puppy tongue
+  fill("pink")
+  ellipse(Xcoord, Ycoord + 10, 3, 5)
+  //Puppy ears
+  fill(181, 125, 55)
+  ellipse(Xcoord - 13, Ycoord, 8, 25)
+  ellipse(Xcoord + 13, Ycoord, 8, 25)
+  pop();
+}
+
+/*SYSTEM FUNCTIONS */
+//Drawing the puppy when mouse is pressed
+function mousePressed() {
+  //We are currently passing 2 arguments to this functions... you have to pass as many arguments as your function takes as parameters.
+  drawPuppy(mouseX, mouseY);
+}
+//Increasing size using up and down arrow keys
+function keyPressed() {
+  if (keyCode == UP_ARROW && puppyProportion < 10) {
+    puppyProportion = puppyProportion + 1;
+  } else if (keyCode === DOWN_ARROW && puppyProportion > 0.5) {
+    puppyProportion = puppyProportion - 1;
+  } else if (key == "c") {
+    //clean background with C
+    background(199, 240, 240);
+      //Text box with Cooper's story
+  fill("white")
+  rect(0, 600, 800, 200)
+  fill("black")
+  textSize(15)
+  text('This is Cooper. Cooper is a small puppy who is going to be a big dog one day. Watch him grow!', 10, 630)
+  text('Press the up arrow key for every year you want Cooper to grow. Then click anywhere on the canvas to see him.', 10, 660)
+  text('If you want to age Cooper down, press the down key and click to see him get younger again.', 10, 690)
+  text('If you want to start over, just press "C".', 10, 720)
+  text('If you want to save all the Coopers, just press "S".', 10, 750)
+  } else if (key == "s") {
+    //save puppy with S
+    save("myDraw.jpg");
+  }
+  
+}
